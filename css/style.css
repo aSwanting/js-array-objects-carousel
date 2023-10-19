@@ -22,6 +22,8 @@ html {
     background-color: rgb(147, 199, 167);
     flex-grow: 1;
     overflow: auto;
+    display: flex;
+    align-items: center;
 }
 
 .app-toolbar {
@@ -36,6 +38,8 @@ html {
     aspect-ratio: 16 / 8;
     background-color: aquamarine;
     position: relative;
+    border-radius: 10px;
+    overflow: hidden;
 }
 
 .carousel-text {
@@ -58,24 +62,44 @@ html {
 
 }
 
+#carousel-item-0 {
+    display: block;
+}
+
+#carousel-item-1 {
+    display: none;
+}
+
+#carousel-item-2 {
+    display: none;
+}
+
+#carousel-item-3 {
+    display: none;
+}
+
+#carousel-item-4 {
+    display: none;
+}
+
 #carousel-item-0 .carousel-img {
     object-position: 50% 34%
 }
 
 #carousel-item-1 .carousel-img {
-    object-position: 50% 38%
+    object-position: 50% 38%;
 }
 
 #carousel-item-2 .carousel-img {
-    object-position: 100% 50%
+    object-position: 100% 50%;
 }
 
 #carousel-item-3 .carousel-img {
-    object-position: 100% 30%
+    object-position: 100% 30%;
 }
 
-#carousel-item-0 .carousel-img {
-    object-position: 50% 34%
+#carousel-item-4 .carousel-img {
+    object-position: 50% 55%;
 }
 
 ::-webkit-scrollbar {
