@@ -25,8 +25,40 @@ html {
     flex-grow: 1;
     overflow: auto;
     display: flex;
+    justify-content: center;
     align-items: center;
     position: relative;
+}
+
+.autoplay-controls {
+    position: absolute;
+    bottom: 20%;
+    display: flex;
+    gap: 50px;
+    color: rgba(43, 46, 53, 0.623);
+    font-size: 30px;
+
+    filter: drop-shadow(3px 5px 5px rgba(0, 0, 0, 0.548));
+}
+
+.autoplay-back,
+.autoplay-stop,
+.autoplay-forward {
+    cursor: pointer;
+    transition: 200ms all;
+    user-select: none;
+}
+
+.autoplay-back:hover,
+.autoplay-stop:hover,
+.autoplay-forward:hover {
+    transform: scale(1.1);
+}
+
+.autoplay-back:active,
+.autoplay-stop:active,
+.autoplay-forward:active {
+    transform: scale(0.9);
 }
 
 
@@ -137,6 +169,10 @@ html {
     transform: scale(1.1);
 }
 
+.toolbar-thumbnail:active {
+    transform: scale(0.9);
+}
+
 /* .toolbar-thumbnail img {
     filter: blur(3px);
 } */
@@ -164,8 +200,11 @@ html {
 
 
 .nav-button:hover {
-    color: rgb(66, 64, 70);
     transform: scale(1.1);
+}
+
+.nav-button:active {
+    transform: scale(0.9);
 }
 
 

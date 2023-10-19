@@ -73,28 +73,29 @@ const thumbnailImage = {
 // Generate Arrays
 const carouselItems = []
 const thumbnailItems = []
-
 images.forEach((img, i) => {
     carouselItems.push(carouselItem.init(img, i))
     thumbnailItems.push(thumbnailImage.init(img, i))
 })
 
 
+// Set active image to 0
 let currentImage = 0
 carouselItems[currentImage].classList.add("active")
 thumbnailItems[currentImage].classList.add("active")
 
 
+//Carousel Nagivation UP
 document.getElementById("nav-up").addEventListener("click", () => {
     changeImage("up")
 })
 
-
+//Carousel Nagivation DOWN
 document.getElementById("nav-down").addEventListener("click", () => {
     changeImage("down")
 })
 
-
+//Carousel Nagivation THUMBNAIL
 thumbnailItems.forEach((element, i) => {
     element.addEventListener("click", function () {
         carouselItems[currentImage].classList.remove("active")
@@ -104,6 +105,39 @@ thumbnailItems.forEach((element, i) => {
         thumbnailItems[currentImage].classList.add("active")
     })
 });
+
+// carouselAutoPlay("down")
+
+let IntervalID
+// Carousel Autoplay
+
+//Carousel Autoplay UP
+document.getElementById("autoplay-back").addEventListener("click", () => {
+    carouselAutoPlay("up")
+})
+
+//Carousel Autoplay DOWN
+document.getElementById("autoplay-forward").addEventListener("click", () => {
+    carouselAutoPlay("down")
+})
+
+//Carousel Autoplay STOP
+document.getElementById("autoplay-stop").addEventListener("click", () => {
+    clearInterval(IntervalID)
+})
+
+function carouselAutoPlay(direction) {
+
+    clearInterval(IntervalID)
+
+    IntervalID = setInterval(() => {
+        changeImage(direction)
+    }, 3 * 1000);
+
+}
+
+
+
 
 
 /////////////////////////////////// FUNCTIONS ///////////////////////////////////////
