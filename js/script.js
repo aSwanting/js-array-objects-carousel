@@ -71,15 +71,18 @@ const thumbnailImage = {
 
 
 const carouselItems = []
+const thumbnailItems = []
 
 images.forEach((img, i) => {
     carouselItems.push(carouselItem.init(img, i))
-    thumbnailImage.init(img,i)
+    thumbnailItems.push(thumbnailImage.init(img,i))
+    
 })
 
 
 let currentImage = 0
 carouselItems[currentImage].classList.add("active")
+thumbnailItems[currentImage].classList.add("active")
 
 
 document.getElementById("nav-up").addEventListener("click", () => {
@@ -102,6 +105,7 @@ document.getElementById("nav-down").addEventListener("click", () => {
 function changeImage(arrow) {
 
     carouselItems[currentImage].classList.remove("active")
+    thumbnailItems[currentImage].classList.remove("active")
 
     if (arrow === "up") {
         if (currentImage > 0) {
@@ -120,6 +124,7 @@ function changeImage(arrow) {
     }
 
     carouselItems[currentImage].classList.add("active")
+    thumbnailItems[currentImage].classList.add("active")
 
 }
 

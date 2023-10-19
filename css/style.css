@@ -44,7 +44,7 @@ html {
     transform: translate(-50%);
     left: 50%;
     box-shadow: 25px 25px 30px rgba(0, 0, 0, 0.527);
-    transition: 300ms all;
+    transition: 500ms all;
 }
 
 
@@ -115,7 +115,12 @@ html {
     width: 80%;
     cursor: pointer;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.247);
-    transition: 200ms all;
+    transition: 500ms all;
+    opacity: 0.5;    
+}
+
+.toolbar-thumbnail.active {
+    opacity: 1;
 }
 
 .toolbar-thumbnail:hover {
@@ -128,7 +133,7 @@ html {
 
 .nav-button {
     border: 2px solid;
-    color: rgba(86, 93, 116, 0.623);
+    color: rgba(43, 46, 53, 0.623);
     font-size: 30px;
     width: 40px;
     aspect-ratio: 1;
