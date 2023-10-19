@@ -34,7 +34,7 @@ const carouselItem = {
     className: "carousel-item",
     id: "carousel-item-" + 0,
     location: appBody,
-  
+
     init(img, i) {
         this.id = "carousel-item-" + (i)
         this.inner = `
@@ -49,12 +49,50 @@ const carouselItem = {
     },
 }
 
+
+const carouselItems = []
 images.forEach((img, i) => {
-    carouselItem.init(img, i)
+    carouselItems.push(carouselItem.init(img, i))
 })
 
 
+let currentImage = 0
+carouselItems[currentImage].classList.add("active")
 
+
+document.getElementById("nav-up").addEventListener("click", () => {
+    changeImage("up")
+})
+
+
+document.getElementById("nav-down").addEventListener("click", () => {
+    changeImage("down")
+})
+
+
+function changeImage(arrow) {
+
+    carouselItems[currentImage].classList.remove("active")
+
+    if (arrow === "up") {
+        if (currentImage > 0) {
+            currentImage--
+        } else {
+            currentImage = carouselItems.length - 1
+        }
+    }
+
+    if (arrow === "down") {
+        if (currentImage < carouselItems.length - 1) {
+            currentImage++
+        } else {
+            currentImage = 0
+        }
+    }
+
+    carouselItems[currentImage].classList.add("active")
+
+}
 
 
 

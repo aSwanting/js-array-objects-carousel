@@ -19,28 +19,37 @@ html {
 }
 
 .app-body {
-    background-color: rgb(147, 199, 167);
+    background-color: rgb(215, 221, 217);
     flex-grow: 1;
     overflow: auto;
     display: flex;
     align-items: center;
+    position: relative;
 }
 
-.app-toolbar {
-    background-color: rgb(112, 112, 112);
-    padding: 100px;
-    flex-shrink: 0;
-}
 
 .carousel-item {
     max-width: 1200px;
+    width: 90%;
     margin: 0 auto;
     aspect-ratio: 16 / 8;
     background-color: aquamarine;
     position: relative;
     border-radius: 10px;
     overflow: hidden;
+    opacity: 0;
+    position: absolute;
+    transform: translate(-50%);
+    left: 50%;
+    box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.527);
+    transition: 300ms all;
 }
+
+.carousel-item.active {
+
+    opacity: 1;
+}
+
 
 .carousel-text {
     text-align: right;
@@ -49,38 +58,19 @@ html {
     width: 100%;
     color: white;
     background-color: rgba(109, 109, 109, 0.322);
-    padding: 10px;
+    padding: 20px;
     font-size: 12px;
     backdrop-filter: blur(10px);
 }
 
 .carousel-img {
-    display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
 
 }
 
-#carousel-item-0 {
-    display: block;
-}
 
-#carousel-item-1 {
-    display: none;
-}
-
-#carousel-item-2 {
-    display: none;
-}
-
-#carousel-item-3 {
-    display: none;
-}
-
-#carousel-item-4 {
-    display: none;
-}
 
 #carousel-item-0 .carousel-img {
     object-position: 50% 34%
@@ -101,6 +91,40 @@ html {
 #carousel-item-4 .carousel-img {
     object-position: 50% 55%;
 }
+
+.app-toolbar {
+    background-color: rgb(112, 112, 112);
+    padding: 100px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+
+.nav-button {
+    background-color: rgba(53, 226, 168, 0.575);
+    border-radius: 20px;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    transition: 200ms all;
+    user-select: none;
+}
+
+.nav-button:hover {
+    background-color: rgba(53, 226, 168, 0.89);
+}
+
+
+
+
+
+
+
 
 ::-webkit-scrollbar {
     display: none;
