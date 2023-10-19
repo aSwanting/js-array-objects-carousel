@@ -33,13 +33,11 @@ const images = [
 
 
 
-const appBody = document.getElementById("app-body")
 
 const carouselItem = {
     type: "div",
-    className: "carousel-item",
-    id: "carousel-item-" + 0,
-    location: appBody,
+    className: "carousel-item",    
+    location: document.getElementById("app-body"),
 
     init(img, i) {
         this.id = "carousel-item-" + (i)
@@ -56,9 +54,27 @@ const carouselItem = {
 }
 
 
+const thumbnailImage = {
+    type: "div",
+    className: "toolbar-thumbnail",    
+    location: document.getElementById("app-toolbar"),
+
+    init(img, i) {
+        this.id = "toolbar-" + (i)
+        this.inner = `
+        <img class="carousel-img" src="./${img.image}"></img>
+        `
+        const element = createDOMobjectAppend(this)
+        return element
+    },
+}
+
+
 const carouselItems = []
+
 images.forEach((img, i) => {
     carouselItems.push(carouselItem.init(img, i))
+    thumbnailImage.init(img,i)
 })
 
 
