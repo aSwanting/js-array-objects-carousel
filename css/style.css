@@ -103,23 +103,31 @@ html {
     gap: 30px;
 }
 
-
-.nav-button {
-    background-color: rgba(53, 226, 168, 0.575);
-    border-radius: 20px;
-    width: 100%;
-    padding: 10px;
-    text-align: center;
+.nav-button {    
+    border: 2px solid;
+    color: rgba(255, 255, 255, 0.623);
+    font-size: 30px;
+    width: 40px;
+    aspect-ratio: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
     cursor: pointer;
     transition: 200ms all;
-    user-select: none;
+    user-select: none; 
+    overflow: hidden;
 }
+
 
 .nav-button:hover {
-    background-color: rgba(53, 226, 168, 0.89);
+    color: rgb(255, 255, 255);
 }
 
 
+.nav-button i {
+    display: block
+}
 
 
 

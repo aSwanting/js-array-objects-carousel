@@ -1,3 +1,5 @@
+///////////////////////////////////////////// DATA /////////////////////////////////////////////
+
 const images = [
     {
         image: 'img/01.webp',
@@ -27,6 +29,10 @@ const images = [
 ]
 
 
+///////////////////////////////////////////// CODE /////////////////////////////////////////////
+
+
+
 const appBody = document.getElementById("app-body")
 
 const carouselItem = {
@@ -40,8 +46,8 @@ const carouselItem = {
         this.inner = `
         <img class="carousel-img" src="./${img.image}"></img>
         <div class="carousel-text">
-            <h3 class="carousel-title">${img.title}</h3>
-            <p class="carousel-description">${img.text}</p>
+        <h3 class="carousel-title">${img.title}</h3>
+        <p class="carousel-description">${img.text}</p>
         </div>
         `
         const element = createDOMobjectAppend(this)
@@ -70,6 +76,13 @@ document.getElementById("nav-down").addEventListener("click", () => {
 })
 
 
+
+
+
+/////////////////////////////////// FUNCTIONS ///////////////////////////////////////
+
+
+// Change image based on arrow pressed
 function changeImage(arrow) {
 
     carouselItems[currentImage].classList.remove("active")
@@ -93,11 +106,6 @@ function changeImage(arrow) {
     carouselItems[currentImage].classList.add("active")
 
 }
-
-
-
-
-/////////////////////////////////// FUNCTIONS ///////////////////////////////////////
 
 
 // Function to create and APPEND DOM element
