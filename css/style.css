@@ -74,7 +74,7 @@ html {
     position: absolute;
     transform: translate(-50%);
     left: 50%;
-    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.527);
+    box-shadow: 5px 5px 25px rgba(0, 0, 0, 0.527);
     transition: 500ms all;
 }
 
@@ -95,6 +95,12 @@ html {
     padding: 20px;
     font-size: 12px;
     backdrop-filter: blur(10px);
+}
+
+.carousel-text h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
 }
 
 
