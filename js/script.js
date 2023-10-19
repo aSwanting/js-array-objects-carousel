@@ -36,11 +36,13 @@ const carouselItem = {
     location: appBody,
   
     init(img, i) {
-        this.id = "carousel-item-" + (i + 1)
+        this.id = "carousel-item-" + (i)
         this.inner = `
-        <img src="./${img.image}"> </img>
-        <h3>${img.title}</h3>
-        <p>${img.text}</p>
+        <img class="carousel-img" src="./${img.image}"></img>
+        <div class="carousel-text">
+            <h3 class="carousel-title">${img.title}</h3>
+            <p class="carousel-description">${img.text}</p>
+        </div>
         `
         const element = createDOMobjectAppend(this)
         return element
