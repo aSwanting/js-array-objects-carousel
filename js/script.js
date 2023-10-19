@@ -30,143 +30,144 @@ const images = [
 
 
 ///////////////////////////////////////////// CODE /////////////////////////////////////////////
+document.addEventListener("DOMContentLoaded", () => {
 
+    const carousel = generateCarousel()
 
-// Generate Carousel Items
-const carouselItem = {
-    type: "div",
-    className: "carousel-item",
-    location: document.getElementById("app-body"),
-
-    init(img, i) {
-        this.id = "carousel-item-" + (i)
-        this.inner = `
-        <img class="carousel-img" src="./${img.image}"></img>
-        <div class="carousel-text">
-        <h3 class="carousel-title">${img.title}</h3>
-        <p class="carousel-description">${img.text}</p>
-        </div>
-        `
-        const element = createDOMobjectAppend(this)
-        return element
-    },
-}
-
-
-// Generate Thumbnail Items
-const thumbnailImage = {
-    type: "div",
-    className: "toolbar-thumbnail",
-    location: document.getElementById("app-toolbar"),
-
-    init(img, i) {
-        this.id = "thumbnail-" + (i)
-        this.inner = `
-        <img class="carousel-img" src="./${img.image}"></img>
-        `
-        const element = createDOMobjectAppend(this)
-        return element
-    },
-}
-
-
-// Generate Arrays
-const carouselItems = []
-const thumbnailItems = []
-images.forEach((img, i) => {
-    carouselItems.push(carouselItem.init(img, i))
-    thumbnailItems.push(thumbnailImage.init(img, i))
-})
-
-
-// Set active image to 0
-let currentImage = 0
-carouselItems[currentImage].classList.add("active")
-thumbnailItems[currentImage].classList.add("active")
-
-
-//Carousel Nagivation UP
-document.getElementById("nav-up").addEventListener("click", () => {
-    changeImage("up")
-})
-
-//Carousel Nagivation DOWN
-document.getElementById("nav-down").addEventListener("click", () => {
-    changeImage("down")
-})
-
-//Carousel Nagivation THUMBNAIL
-thumbnailItems.forEach((element, i) => {
-    element.addEventListener("click", function () {
-        carouselItems[currentImage].classList.remove("active")
-        thumbnailItems[currentImage].classList.remove("active")
-        currentImage = i
-        carouselItems[currentImage].classList.add("active")
-        thumbnailItems[currentImage].classList.add("active")
+    //Carousel Nagivation UP
+    document.getElementById("nav-up").addEventListener("click", () => {
+        changeImage("up", carousel)
     })
-});
 
-// carouselAutoPlay("down")
-
-let IntervalID
-// Carousel Autoplay
-
-//Carousel Autoplay UP
-document.getElementById("autoplay-back").addEventListener("click", () => {
-    carouselAutoPlay("up")
+    //Carousel Nagivation DOWN
+    document.getElementById("nav-down").addEventListener("click", () => {
+        changeImage("down", carousel)
+    })
+    
+    //Carousel Nagivation THUMBNAIL
+    carousel.thumbnailItems.forEach((element, i) => {
+        element.addEventListener("click", function () {
+            carousel.carouselItems[carousel.currentImage].classList.remove("active")
+            carousel.thumbnailItems[carousel.currentImage].classList.remove("active")
+            carousel.currentImage = i
+            carousel.carouselItems[carousel.currentImage].classList.add("active")
+            carousel.thumbnailItems[carousel.currentImage].classList.add("active")
+        })
+    });
+    
+    let IntervalID
+    
+    //Carousel Autoplay UP
+    document.getElementById("autoplay-back").addEventListener("click", () => {
+        
+        clearInterval(IntervalID)
+        IntervalID = setInterval(() => {
+            changeImage("up", carousel)
+        }, 3 * 1000);
+        
+    })
+    
+    //Carousel Autoplay DOWN
+    document.getElementById("autoplay-forward").addEventListener("click", () => {
+        
+        clearInterval(IntervalID)
+        IntervalID = setInterval(() => {
+            changeImage("down", carousel)
+        }, 3 * 1000);
+        
+    })
+    
+    //Carousel Autoplay STOP
+    document.getElementById("autoplay-stop").addEventListener("click", () => {
+        clearInterval(IntervalID)
+    })
+    
 })
-
-//Carousel Autoplay DOWN
-document.getElementById("autoplay-forward").addEventListener("click", () => {
-    carouselAutoPlay("down")
-})
-
-//Carousel Autoplay STOP
-document.getElementById("autoplay-stop").addEventListener("click", () => {
-    clearInterval(IntervalID)
-})
-
-function carouselAutoPlay(direction) {
-
-    clearInterval(IntervalID)
-
-    IntervalID = setInterval(() => {
-        changeImage(direction)
-    }, 3 * 1000);
-
-}
-
-
-
-
 
 /////////////////////////////////// FUNCTIONS ///////////////////////////////////////
 
 
-// Change image based on arrow pressed
-function changeImage(direction) {
 
-    carouselItems[currentImage].classList.remove("active")
-    thumbnailItems[currentImage].classList.remove("active")
+function generateCarousel() {
+
+    // Generate Carousel Items
+    const carouselItem = {
+        type: "div",
+        className: "carousel-item",
+        location: document.getElementById("app-body"),
+
+        init(img, i) {
+            this.id = "carousel-item-" + (i)
+            this.inner = `
+            <img class="carousel-img" src="./${img.image}"></img>
+            <div class="carousel-text">
+            <h3 class="carousel-title">${img.title}</h3>
+            <p class="carousel-description">${img.text}</p>
+            </div>
+            `
+            const element = createDOMobjectAppend(this)
+            return element
+        },
+    }
+
+    // Generate Thumbnail Items
+    const thumbnailImage = {
+        type: "div",
+        className: "toolbar-thumbnail",
+        location: document.getElementById("app-toolbar"),
+
+        init(img, i) {
+            this.id = "thumbnail-" + (i)
+            this.inner = `
+        <img class="carousel-img" src="./${img.image}"></img>
+        `
+            const element = createDOMobjectAppend(this)
+            return element
+        },
+    }
+
+    // Generate Arrays
+    const carouselItems = []
+    const thumbnailItems = []
+    images.forEach((img, i) => {
+        carouselItems.push(carouselItem.init(img, i))
+        thumbnailItems.push(thumbnailImage.init(img, i))
+    })
+
+    // Set active image to 0
+    let currentImage = 0
+    carouselItems[currentImage].classList.add("active")
+    thumbnailItems[currentImage].classList.add("active")
+
+    return { currentImage, carouselItems, thumbnailItems }
+
+}
+
+
+// Change image based on arrow pressed
+function changeImage(direction, object) {
+
+    object.carouselItems[object.currentImage].classList.remove("active")
+    object.thumbnailItems[object.currentImage].classList.remove("active")
 
     if (direction === "up") {
-        if (currentImage > 0) {
-            currentImage--
+        if (object.currentImage > 0) {
+            object.currentImage--
         } else {
-            currentImage = carouselItems.length - 1
+            object.currentImage = object.carouselItems.length - 1
         }
     }
 
     if (direction === "down") {
-        if (currentImage < carouselItems.length - 1) {
-            currentImage++
+        if (object.currentImage < object.carouselItems.length - 1) {
+            object.currentImage++
         } else {
-            currentImage = 0
+            object.currentImage = 0
         }
     }
 
-    carouselItems[currentImage].classList.add("active")
-    thumbnailItems[currentImage].classList.add("active")
+    object.carouselItems[object.currentImage].classList.add("active")
+    object.thumbnailItems[object.currentImage].classList.add("active")
 
 }
 
