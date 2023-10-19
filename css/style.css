@@ -35,7 +35,6 @@ html {
     width: 95%;
     margin: 0 auto;
     aspect-ratio: 16 / 8;
-    background-color: aquamarine;
     position: relative;
     border-radius: 10px;
     overflow: hidden;
@@ -43,7 +42,7 @@ html {
     position: absolute;
     transform: translate(-50%);
     left: 50%;
-    box-shadow: 25px 25px 30px rgba(0, 0, 0, 0.527);
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.527);
     transition: 500ms all;
 }
 
@@ -116,12 +115,23 @@ html {
     cursor: pointer;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.247);
     transition: 500ms all;
-    opacity: 0.5;    
+    opacity: 0.5;
 }
 
 .toolbar-thumbnail.active {
     opacity: 1;
 }
+
+
+#thumbnail-2 img {
+    object-position: 65% 50%;
+}
+
+
+#thumbnail-3 img {
+    object-position: 93% 50%;
+}
+
 
 .toolbar-thumbnail:hover {
     transform: scale(1.1);

@@ -32,8 +32,7 @@ const images = [
 ///////////////////////////////////////////// CODE /////////////////////////////////////////////
 
 
-
-
+// Generate Carousel Items
 const carouselItem = {
     type: "div",
     className: "carousel-item",
@@ -54,13 +53,14 @@ const carouselItem = {
 }
 
 
+// Generate Thumbnail Items
 const thumbnailImage = {
     type: "div",
     className: "toolbar-thumbnail",
     location: document.getElementById("app-toolbar"),
 
     init(img, i) {
-        this.id = "toolbar-" + (i)
+        this.id = "thumbnail-" + (i)
         this.inner = `
         <img class="carousel-img" src="./${img.image}"></img>
         `
@@ -70,13 +70,13 @@ const thumbnailImage = {
 }
 
 
+// Generate Arrays
 const carouselItems = []
 const thumbnailItems = []
 
 images.forEach((img, i) => {
     carouselItems.push(carouselItem.init(img, i))
     thumbnailItems.push(thumbnailImage.init(img, i))
-
 })
 
 
@@ -110,12 +110,12 @@ thumbnailItems.forEach((element, i) => {
 
 
 // Change image based on arrow pressed
-function changeImage(arrow) {
+function changeImage(direction) {
 
     carouselItems[currentImage].classList.remove("active")
     thumbnailItems[currentImage].classList.remove("active")
 
-    if (arrow === "up") {
+    if (direction === "up") {
         if (currentImage > 0) {
             currentImage--
         } else {
@@ -123,7 +123,7 @@ function changeImage(arrow) {
         }
     }
 
-    if (arrow === "down") {
+    if (direction === "down") {
         if (currentImage < carouselItems.length - 1) {
             currentImage++
         } else {
