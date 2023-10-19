@@ -36,7 +36,7 @@ const images = [
 
 const carouselItem = {
     type: "div",
-    className: "carousel-item",    
+    className: "carousel-item",
     location: document.getElementById("app-body"),
 
     init(img, i) {
@@ -56,7 +56,7 @@ const carouselItem = {
 
 const thumbnailImage = {
     type: "div",
-    className: "toolbar-thumbnail",    
+    className: "toolbar-thumbnail",
     location: document.getElementById("app-toolbar"),
 
     init(img, i) {
@@ -75,8 +75,8 @@ const thumbnailItems = []
 
 images.forEach((img, i) => {
     carouselItems.push(carouselItem.init(img, i))
-    thumbnailItems.push(thumbnailImage.init(img,i))
-    
+    thumbnailItems.push(thumbnailImage.init(img, i))
+
 })
 
 
@@ -95,7 +95,15 @@ document.getElementById("nav-down").addEventListener("click", () => {
 })
 
 
-
+thumbnailItems.forEach((element, i) => {
+    element.addEventListener("click", function () {
+        carouselItems[currentImage].classList.remove("active")
+        thumbnailItems[currentImage].classList.remove("active")
+        currentImage = i
+        carouselItems[currentImage].classList.add("active")
+        thumbnailItems[currentImage].classList.add("active")
+    })
+});
 
 
 /////////////////////////////////// FUNCTIONS ///////////////////////////////////////
