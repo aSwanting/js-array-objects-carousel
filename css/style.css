@@ -16,7 +16,8 @@ html {
     height: 100vh;
     overflow: hidden;
     display: flex;
-    background: url(../img/bg.jpg);
+    /* background: url(../img/bg.jpg); */
+    background-color: rgb(69, 102, 146);
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -139,7 +140,7 @@ html {
     align-items: center;
     gap: 50px;
     padding: 20px;
-    background-color: rgba(0, 119, 255, 0.05);
+    background-color: rgba(151, 185, 224, 0.555);
     backdrop-filter: blur(3px);
 }
 

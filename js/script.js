@@ -1,13 +1,13 @@
 /////////////////////////////////// FUNCTIONS ///////////////////////////////////////
 
 
-function initializeCarousel() {
+function initializeCarousel(carouselBody, carouselToolbar) {
 
     // Generate Carousel Items
     const carouselItem = {
         type: "div",
         className: "carousel-item",
-        location: document.getElementById("app-body"),
+        location: document.getElementById(carouselBody),
 
         init(img, i) {
             this.id = "carousel-item-" + (i)
@@ -27,7 +27,7 @@ function initializeCarousel() {
     const thumbnailImage = {
         type: "div",
         className: "toolbar-thumbnail",
-        location: document.getElementById("app-toolbar"),
+        location: document.getElementById(carouselToolbar),
 
         init(img, i) {
             this.id = "thumbnail-" + (i)
@@ -37,20 +37,50 @@ function initializeCarousel() {
         },
     }
 
+    // Generate Carousel Controls
+    const carouselControls = {
+        type: "div",
+        className: "nav-button",
+        location: document.getElementById(carouselToolbar),
+
+        init(direction) {
+            this.id = `nav-${direction}`
+            this.inner = `<i class="fa-solid fa-caret-${direction}"></i>`
+            const element = createDOMobjectAppend(this)
+            return element
+        },
+    }
+
+    carouselControls.init("up")
+    carouselControls.init("down")
+
     // Generate Arrays
     const carouselItems = []
     const thumbnailItems = []
     images.forEach((img, i) => {
         carouselItems.push(carouselItem.init(img, i))
         thumbnailItems.push(thumbnailImage.init(img, i))
+
+        if (!i) {
+            carouselItems[i].classList.add("active")
+            thumbnailItems[i].classList.add("active")
+        }
     })
 
     // Set active image to 0
     let currentImage = 0
-    carouselItems[currentImage].classList.add("active")
-    thumbnailItems[currentImage].classList.add("active")
 
-    return { currentImage, carouselItems, thumbnailItems }
+    // Initialize Carousel Object
+    const carousel = { carouselItems, thumbnailItems, currentImage }
+
+    //Carousel Nagivation
+    document.getElementById("nav-up").addEventListener("click", () => changeImage("up", carousel))
+    document.getElementById("nav-down").addEventListener("click", () => changeImage("down", carousel))
+    carousel.thumbnailItems.forEach((element, i) => {
+        element.addEventListener("click", () => {
+            changeImage("thumb", carousel, i)
+        })
+    })
 
 }
 
@@ -100,83 +130,44 @@ function createDOMobjectAppend(object) {
 }
 
 
-///////////////////////////////////////////// DATA /////////////////////////////////////////////
-
-
-const images = [
-    {
-        image: 'img/01.webp',
-        title: "Marvel's Spiderman Miles Morale",
-        text: 'Experience the rise of Miles Morales as the new hero masters incredible, explosive new powers to become his own Spider-Man.',
-    },
-    {
-        image: 'img/02.webp',
-        title: 'Ratchet & Clank: Rift Apart',
-        text: 'Go dimension-hopping with Ratchet and Clank as they take on an evil emperor from another reality.',
-    },
-    {
-        image: 'img/03.webp',
-        title: 'Fortnite',
-        text: 'Grab all of your friends and drop into Epic Games Fortnite, a massive 100 - player face - off that combines looting, crafting, shootouts and chaos.',
-    },
-    {
-        image: 'img/04.webp',
-        title: 'Stray',
-        text: 'Lost, injured and alone, a stray cat must untangle an ancient mystery to escape a long-forgotten city',
-    },
-    {
-        image: 'img/05.webp',
-        title: "Marvel's Avengers",
-        text: "Marvel's Avengers is an epic, third-person, action-adventure game that combines an original, cinematic story with single-player and co-operative gameplay.",
-    },
-]
-
-
 ///////////////////////////////////////////// CODE /////////////////////////////////////////////
+
 
 
 document.addEventListener("DOMContentLoaded", () => {
 
-    const carousel = initializeCarousel()
-
-    //Carousel Nagivation UP
-    document.getElementById("nav-up").addEventListener("click", () => changeImage("up", carousel))
-
-    //Carousel Nagivation DOWN
-    document.getElementById("nav-down").addEventListener("click", () => changeImage("down", carousel))
-
-
-    //Carousel Nagivation THUMBNAIL
-    carousel.thumbnailItems.forEach((element, i) => {
-        element.addEventListener("click", () => {
-            changeImage("thumb", carousel, i)
-        })
-    })
-
-    let IntervalID
-
-    //Carousel Autoplay UP
-    document.getElementById("autoplay-back").addEventListener("click", () => {
-
-        clearInterval(IntervalID)
-        IntervalID = setInterval(() => {
-            changeImage("up", carousel)
-        }, 3 * 1000);
-
-    })
-
-    //Carousel Autoplay DOWN
-    document.getElementById("autoplay-forward").addEventListener("click", () => {
-
-        clearInterval(IntervalID)
-        IntervalID = setInterval(() => {
-            changeImage("down", carousel)
-        }, 3 * 1000);
-
-    })
-
-    //Carousel Autoplay STOP
-    document.getElementById("autoplay-stop").addEventListener("click", () => clearInterval(IntervalID))
+    initializeCarousel("app-body", "app-toolbar")
 
 })
+
+
+
+///////////////////////////////////////////// TODO /////////////////////////////////////////////
+
+
+    // let IntervalID
+
+    // //Carousel Autoplay UP
+    // document.getElementById("autoplay-back").addEventListener("click", () => {
+
+    //     clearInterval(IntervalID)
+    //     IntervalID = setInterval(() => {
+    //         changeImage("up", carousel)
+    //     }, 3 * 1000);
+
+    // })
+
+    // //Carousel Autoplay DOWN
+    // document.getElementById("autoplay-forward").addEventListener("click", () => {
+
+    //     clearInterval(IntervalID)
+    //     IntervalID = setInterval(() => {
+    //         changeImage("down", carousel)
+    //     }, 3 * 1000);
+
+    // })
+
+    // //Carousel Autoplay STOP
+    // document.getElementById("autoplay-stop").addEventListener("click", () => clearInterval(IntervalID))
+
 
