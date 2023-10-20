@@ -31,13 +31,11 @@ html {
 }
 
 .autoplay-controls {
-    position: absolute;
-    bottom: 20%;
     display: flex;
-    gap: 50px;
+    gap: 20px;
     color: rgba(43, 46, 53, 0.623);
-    font-size: 30px;
-
+    font-size: 20px;
+    order: 3;
     filter: drop-shadow(3px 5px 5px rgba(0, 0, 0, 0.548));
 }
 
