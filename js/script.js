@@ -1,3 +1,108 @@
+/////////////////////////////////// FUNCTIONS ///////////////////////////////////////
+
+
+function initializeCarousel() {
+
+    // Generate Carousel Items
+    const carouselItem = {
+        type: "div",
+        className: "carousel-item",
+        location: document.getElementById("app-body"),
+
+        init(img, i) {
+            this.id = "carousel-item-" + (i)
+            this.inner = `
+            <img class="carousel-img" src="./${img.image}"></img>
+            <div class="carousel-text">
+            <h3 class="carousel-title">${img.title}</h3>
+            <p class="carousel-description">${img.text}</p>
+            </div>
+            `
+            const element = createDOMobjectAppend(this)
+            return element
+        },
+    }
+
+    // Generate Thumbnail Items
+    const thumbnailImage = {
+        type: "div",
+        className: "toolbar-thumbnail",
+        location: document.getElementById("app-toolbar"),
+
+        init(img, i) {
+            this.id = "thumbnail-" + (i)
+            this.inner = `<img class="carousel-img" src="./${img.image}"></img>`
+            const element = createDOMobjectAppend(this)
+            return element
+        },
+    }
+
+    // Generate Arrays
+    const carouselItems = []
+    const thumbnailItems = []
+    images.forEach((img, i) => {
+        carouselItems.push(carouselItem.init(img, i))
+        thumbnailItems.push(thumbnailImage.init(img, i))
+    })
+
+    // Set active image to 0
+    let currentImage = 0
+    carouselItems[currentImage].classList.add("active")
+    thumbnailItems[currentImage].classList.add("active")
+
+    return { currentImage, carouselItems, thumbnailItems }
+
+}
+
+
+// Change image based on element clicked
+function changeImage(clicked, object, index) {
+
+    let {carouselItems, thumbnailItems, currentImage} = object
+    console.log(carouselItems, thumbnailItems, currentImage)
+
+    carouselItems[currentImage].classList.remove("active")
+    thumbnailItems[currentImage].classList.remove("active")
+
+    if (clicked === "up") {
+        if (currentImage > 0) {
+            currentImage--
+        } else {
+            currentImage = carouselItems.length - 1
+        }
+    }
+
+    if (clicked === "down") {
+        if (currentImage < carouselItems.length - 1) {
+            currentImage++
+        } else {
+            currentImage = 0
+        }
+    }
+
+    if (clicked === "thumb") {
+        currentImage = index
+    }
+
+    carouselItems[currentImage].classList.add("active")
+    thumbnailItems[currentImage].classList.add("active")
+
+}
+
+
+// Function to create and APPEND DOM element
+function createDOMobjectAppend(object) {
+
+    const DOMobject = document.createElement(object.type)
+    object.location.append(DOMobject)
+    DOMobject.className = object.className
+    DOMobject.id = object.id
+    DOMobject.innerHTML = object.inner
+    return DOMobject
+
+}
+
+
 ///////////////////////////////////////////// DATA /////////////////////////////////////////////
 
 const images = [
@@ -81,104 +186,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
 })
 
-/////////////////////////////////// FUNCTIONS ///////////////////////////////////////
-
-
-
-function initializeCarousel() {
-
-    // Generate Carousel Items
-    const carouselItem = {
-        type: "div",
-        className: "carousel-item",
-        location: document.getElementById("app-body"),
-
-        init(img, i) {
-            this.id = "carousel-item-" + (i)
-            this.inner = `
-            <img class="carousel-img" src="./${img.image}"></img>
-            <div class="carousel-text">
-            <h3 class="carousel-title">${img.title}</h3>
-            <p class="carousel-description">${img.text}</p>
-            </div>
-            `
-            const element = createDOMobjectAppend(this)
-            return element
-        },
-    }
-
-    // Generate Thumbnail Items
-    const thumbnailImage = {
-        type: "div",
-        className: "toolbar-thumbnail",
-        location: document.getElementById("app-toolbar"),
-
-        init(img, i) {
-            this.id = "thumbnail-" + (i)
-            this.inner = `<img class="carousel-img" src="./${img.image}"></img>`
-            const element = createDOMobjectAppend(this)
-            return element
-        },
-    }
-
-    // Generate Arrays
-    const carouselItems = []
-    const thumbnailItems = []
-    images.forEach((img, i) => {
-        carouselItems.push(carouselItem.init(img, i))
-        thumbnailItems.push(thumbnailImage.init(img, i))
-    })
-
-    // Set active image to 0
-    let currentImage = 0
-    carouselItems[currentImage].classList.add("active")
-    thumbnailItems[currentImage].classList.add("active")
-
-    return { currentImage, carouselItems, thumbnailItems }
-
-}
-
-
-// Change image based on element clicked
-function changeImage(clicked, object, index) {
-
-    object.carouselItems[object.currentImage].classList.remove("active")
-    object.thumbnailItems[object.currentImage].classList.remove("active")
-
-    if (clicked === "up") {
-        if (object.currentImage > 0) {
-            object.currentImage--
-        } else {
-            object.currentImage = object.carouselItems.length - 1
-        }
-    }
-
-    if (clicked === "down") {
-        if (object.currentImage < object.carouselItems.length - 1) {
-            object.currentImage++
-        } else {
-            object.currentImage = 0
-        }
-    }
-
-    if (clicked === "thumb") {
-        object.currentImage = index
-    }
-
-    object.carouselItems[object.currentImage].classList.add("active")
-    object.thumbnailItems[object.currentImage].classList.add("active")
-
-}
-
-
-// Function to create and APPEND DOM element
-function createDOMobjectAppend(object) {
-
-    const DOMobject = document.createElement(object.type)
-    object.location.append(DOMobject)
-    DOMobject.className = object.className
-    DOMobject.id = object.id
-    DOMobject.innerHTML = object.inner
-    return DOMobject
-
-}
