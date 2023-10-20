@@ -139,7 +139,7 @@ function initializeCarousel() {
 }
 
 
-// Change image based on arrow pressed
+// Change image based on element clicked
 function changeImage(clicked, object, index) {
 
     object.carouselItems[object.currentImage].classList.remove("active")
