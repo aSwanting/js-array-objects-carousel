@@ -58,8 +58,6 @@ function initializeCarousel() {
 // Change image based on element clicked
 function changeImage(clicked, object, index) {
 
- 
-
     object.carouselItems[object.currentImage].classList.remove("active")
     object.thumbnailItems[object.currentImage].classList.remove("active")
 
@@ -142,14 +140,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const carousel = initializeCarousel()
 
     //Carousel Nagivation UP
-    document.getElementById("nav-up").addEventListener("click", () => {
-        changeImage("up", carousel)
-    })
+    document.getElementById("nav-up").addEventListener("click", () => changeImage("up", carousel))
 
     //Carousel Nagivation DOWN
-    document.getElementById("nav-down").addEventListener("click", () => {
-        changeImage("down", carousel)
-    })
+    document.getElementById("nav-down").addEventListener("click", () => changeImage("down", carousel))
+
 
     //Carousel Nagivation THUMBNAIL
     carousel.thumbnailItems.forEach((element, i) => {
@@ -181,9 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     //Carousel Autoplay STOP
-    document.getElementById("autoplay-stop").addEventListener("click", () => {
-        clearInterval(IntervalID)
-    })
+    document.getElementById("autoplay-stop").addEventListener("click", () => clearInterval(IntervalID))
 
 })
 
