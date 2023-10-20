@@ -30,9 +30,10 @@ const images = [
 
 
 ///////////////////////////////////////////// CODE /////////////////////////////////////////////
+
 document.addEventListener("DOMContentLoaded", () => {
 
-    const carousel = generateCarousel()
+    const carousel = initializeCarousel()
 
     //Carousel Nagivation UP
     document.getElementById("nav-up").addEventListener("click", () => {
@@ -43,52 +44,48 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("nav-down").addEventListener("click", () => {
         changeImage("down", carousel)
     })
-    
+
     //Carousel Nagivation THUMBNAIL
     carousel.thumbnailItems.forEach((element, i) => {
-        element.addEventListener("click", function () {
-            carousel.carouselItems[carousel.currentImage].classList.remove("active")
-            carousel.thumbnailItems[carousel.currentImage].classList.remove("active")
-            carousel.currentImage = i
-            carousel.carouselItems[carousel.currentImage].classList.add("active")
-            carousel.thumbnailItems[carousel.currentImage].classList.add("active")
+        element.addEventListener("click", () => {
+            changeImage("thumb", carousel, i)
         })
-    });
-    
+    })
+
     let IntervalID
-    
+
     //Carousel Autoplay UP
     document.getElementById("autoplay-back").addEventListener("click", () => {
-        
+
         clearInterval(IntervalID)
         IntervalID = setInterval(() => {
             changeImage("up", carousel)
         }, 3 * 1000);
-        
+
     })
-    
+
     //Carousel Autoplay DOWN
     document.getElementById("autoplay-forward").addEventListener("click", () => {
-        
+
         clearInterval(IntervalID)
         IntervalID = setInterval(() => {
             changeImage("down", carousel)
         }, 3 * 1000);
-        
+
     })
-    
+
     //Carousel Autoplay STOP
     document.getElementById("autoplay-stop").addEventListener("click", () => {
         clearInterval(IntervalID)
     })
-    
+
 })
 
 /////////////////////////////////// FUNCTIONS ///////////////////////////////////////
 
 
 
-function generateCarousel() {
+function initializeCarousel() {
 
     // Generate Carousel Items
     const carouselItem = {
@@ -118,9 +115,7 @@ function generateCarousel() {
 
         init(img, i) {
             this.id = "thumbnail-" + (i)
-            this.inner = `
-        <img class="carousel-img" src="./${img.image}"></img>
-        `
+            this.inner = `<img class="carousel-img" src="./${img.image}"></img>`
             const element = createDOMobjectAppend(this)
             return element
         },
@@ -145,12 +140,12 @@ function generateCarousel() {
 
 
 // Change image based on arrow pressed
-function changeImage(direction, object) {
+function changeImage(clicked, object, index) {
 
     object.carouselItems[object.currentImage].classList.remove("active")
     object.thumbnailItems[object.currentImage].classList.remove("active")
 
-    if (direction === "up") {
+    if (clicked === "up") {
         if (object.currentImage > 0) {
             object.currentImage--
         } else {
@@ -158,12 +153,16 @@ function changeImage(direction, object) {
         }
     }
 
-    if (direction === "down") {
+    if (clicked === "down") {
         if (object.currentImage < object.carouselItems.length - 1) {
             object.currentImage++
         } else {
             object.currentImage = 0
         }
+    }
+
+    if (clicked === "thumb") {
+        object.currentImage = index
     }
 
     object.carouselItems[object.currentImage].classList.add("active")
