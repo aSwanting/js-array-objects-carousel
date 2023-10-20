@@ -58,34 +58,33 @@ function initializeCarousel() {
 // Change image based on element clicked
 function changeImage(clicked, object, index) {
 
-    let {carouselItems, thumbnailItems, currentImage} = object
-    console.log(carouselItems, thumbnailItems, currentImage)
+ 
 
-    carouselItems[currentImage].classList.remove("active")
-    thumbnailItems[currentImage].classList.remove("active")
+    object.carouselItems[object.currentImage].classList.remove("active")
+    object.thumbnailItems[object.currentImage].classList.remove("active")
 
     if (clicked === "up") {
-        if (currentImage > 0) {
-            currentImage--
+        if (object.currentImage > 0) {
+            object.currentImage--
         } else {
-            currentImage = carouselItems.length - 1
+            object.currentImage = object.carouselItems.length - 1
         }
     }
 
     if (clicked === "down") {
-        if (currentImage < carouselItems.length - 1) {
-            currentImage++
+        if (object.currentImage < object.carouselItems.length - 1) {
+            object.currentImage++
         } else {
-            currentImage = 0
+            object.currentImage = 0
         }
     }
 
     if (clicked === "thumb") {
-        currentImage = index
+        object.currentImage = index
     }
 
-    carouselItems[currentImage].classList.add("active")
-    thumbnailItems[currentImage].classList.add("active")
+    object.carouselItems[object.currentImage].classList.add("active")
+    object.thumbnailItems[object.currentImage].classList.add("active")
 
 }
 
@@ -104,6 +103,7 @@ function createDOMobjectAppend(object) {
 
 
 ///////////////////////////////////////////// DATA /////////////////////////////////////////////
+
 
 const images = [
     {
@@ -135,6 +135,7 @@ const images = [
 
 
 ///////////////////////////////////////////// CODE /////////////////////////////////////////////
+
 
 document.addEventListener("DOMContentLoaded", () => {
 
