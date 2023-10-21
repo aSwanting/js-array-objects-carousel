@@ -54,6 +54,27 @@ function initializeCarousel(carouselBody, carouselToolbar) {
     carouselControls.init("up")
     carouselControls.init("down")
 
+
+    // Generate Carousel Controls
+    const autoPlayControls = {
+        type: "div",
+        className: "autoplay-controls",
+        location: document.getElementById(carouselToolbar),
+
+        init() {
+            this.inner = `
+            <div class="autoplay-backward" id="autoplay-backward"><i class="fa-solid fa-backward"></i></div>
+            <div class="autoplay-stop" id="autoplay-stop"><i class="fa-solid fa-stop"></i></div>
+            <div class="autoplay-forward" id="autoplay-forward"><i class="fa-solid fa-forward"></i></div>
+            `
+            const element = createDOMobjectAppend(this)
+            return element
+        },
+    }
+
+    autoPlayControls.init()
+
+
     // Generate Arrays
     const carouselItems = []
     const thumbnailItems = []
@@ -82,6 +103,10 @@ function initializeCarousel(carouselBody, carouselToolbar) {
         })
     })
 
+    let intervalID = null
+    document.getElementById("autoplay-backward").addEventListener("click", () => intervalID = autoPlay("up", intervalID, carousel))
+    document.getElementById("autoplay-forward").addEventListener("click", () => intervalID = autoPlay("down", intervalID, carousel))
+    document.getElementById("autoplay-stop").addEventListener("click", () => intervalID = autoPlay("stop", intervalID, carousel))
 }
 
 
@@ -117,6 +142,21 @@ function changeImage(clicked, object, index) {
 }
 
 
+function autoPlay(clicked, intervalID, object) {
+
+    clearInterval(intervalID);
+
+    if (clicked !== "stop") {
+
+        intervalID = setInterval(() => {
+            changeImage(clicked, object)
+        }, 3 * 1000);
+
+    }
+
+    return intervalID
+}
+
 // Function to create and APPEND DOM element
 function createDOMobjectAppend(object) {
 
@@ -140,34 +180,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
 })
 
-
-
-///////////////////////////////////////////// TODO /////////////////////////////////////////////
-
-
-    // let IntervalID
-
-    // //Carousel Autoplay UP
-    // document.getElementById("autoplay-back").addEventListener("click", () => {
-
-    //     clearInterval(IntervalID)
-    //     IntervalID = setInterval(() => {
-    //         changeImage("up", carousel)
-    //     }, 3 * 1000);
-
-    // })
-
-    // //Carousel Autoplay DOWN
-    // document.getElementById("autoplay-forward").addEventListener("click", () => {
-
-    //     clearInterval(IntervalID)
-    //     IntervalID = setInterval(() => {
-    //         changeImage("down", carousel)
-    //     }, 3 * 1000);
-
-    // })
-
-    // //Carousel Autoplay STOP
-    // document.getElementById("autoplay-stop").addEventListener("click", () => clearInterval(IntervalID))
 
 

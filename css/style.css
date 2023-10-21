@@ -40,7 +40,7 @@ html {
     filter: drop-shadow(3px 5px 5px rgba(0, 0, 0, 0.548));
 }
 
-.autoplay-back,
+.autoplay-backward,
 .autoplay-stop,
 .autoplay-forward {
     cursor: pointer;
@@ -48,13 +48,13 @@ html {
     user-select: none;
 }
 
-.autoplay-back:hover,
+.autoplay-backward:hover,
 .autoplay-stop:hover,
 .autoplay-forward:hover {
     transform: scale(1.1);
 }
 
-.autoplay-back:active,
+.autoplay-backward:active,
 .autoplay-stop:active,
 .autoplay-forward:active {
     transform: scale(0.9);
